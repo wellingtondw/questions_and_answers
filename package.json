@@ -1,0 +1,23 @@
+{
+  "name": "questions_and_answers",
+  "version": "1.0.0",
+  "description": "question and answer platform",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wellingtondw/questions_and_answers.git"
+  },
+  "author": "Wellington Lima",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wellingtondw/questions_and_answers/issues"
+  },
+  "homepage": "https://github.com/wellingtondw/questions_and_answers#readme",
+  "dependencies": {
+    "ejs": "^3.0.1",
+    "express": "^4.17.1"
+  }
+}
