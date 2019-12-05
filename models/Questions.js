@@ -13,3 +13,5 @@ const Questions = connection.define('questions', {
 });
 
 Questions.sync({ force: false });
+
+module.exports = Questions

@@ -3,7 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const connection = require('./config/database');
 
-const questionsModel = require('./models/Questions');
+const Questions = require('./models/Questions');
 
 connection.authenticate()
   .then(() => console.log('database connection success'))
@@ -16,7 +16,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-  res.render('index');
+  Questions.findAll({ raw: true }).then(questions => {
+    res.render('index', { questions });
+  }).catch(err => console.log(err));
 });
 
 app.get('/ask', (req, res) => {
@@ -25,7 +27,13 @@ app.get('/ask', (req, res) => {
 
 app.post('/save-ask', (req, res) => {
   const { title, description } = req.body
-  res.send("formulario recebido" + title + description)
+
+  Questions.create({
+    title,
+    description
+  }).then(() => {
+    res.redirect('/')
+  }).catch(err => console.log(err))
 })
 
 app.listen(3000, () => {
