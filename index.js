@@ -16,7 +16,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-  Questions.findAll({ raw: true }).then(questions => {
+  Questions.findAll({
+    raw: true, order: [
+      ['id', 'DESC']
+    ]
+  }).then(questions => {
     res.render('index', { questions });
   }).catch(err => console.log(err));
 });
