@@ -25,6 +25,20 @@ app.get('/', (req, res) => {
   }).catch(err => console.log(err));
 });
 
+app.get('/question/:id', (req, res) => {
+  const { id } = req.params
+
+  Questions.findOne({
+    raw: true,
+    where: { id }
+  }).then(question => {
+    if (question) return res.render('question', { question });
+
+    return res.redirect('/');
+
+  }).catch(err => console.log(err))
+})
+
 app.get('/ask', (req, res) => {
   res.render('ask')
 })
