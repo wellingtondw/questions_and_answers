@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const connection = require('./config/database');
 
 const Questions = require('./models/Questions');
+const Answers = require('./models/Answers');
 
 connection.authenticate()
   .then(() => console.log('database connection success'))
@@ -53,6 +54,16 @@ app.post('/save-ask', (req, res) => {
     res.redirect('/')
   }).catch(err => console.log(err))
 })
+
+app.post('/reply', (req, res) => {
+  const { body, questionId } = req.body;
+  Answers.create({
+    body,
+    questionId
+  }).then(() => {
+    res.redirect(`/question/${questionId}`);
+  }).catch(err => console.log(err));
+});
 
 app.listen(3000, () => {
   console.log(`Server is running on port: 3000`)

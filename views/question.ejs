@@ -8,6 +8,15 @@
     <h1><%=question.title%></h1>
     <p><%=question.description%></p>
     <hr>
+
+    <form action="/reply" method="POST">
+      <h3>Responda</h3>
+      <label>Resposta:</label>
+      <textarea placeholder="Digite sua resposta" class="form-control" name="body"></textarea>
+      <br>
+      <input type="hidden" name="questionId" value="<%=question.id%>">
+      <button class="btn btn-primary">Responder</button>
+    </form>
   </div>
 </body>
 <%- include('partials/footer'); -%>
