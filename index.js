@@ -33,16 +33,26 @@ app.get('/question/:id', (req, res) => {
     raw: true,
     where: { id }
   }).then(question => {
-    if (question) return res.render('question', { question });
+    if (question) {
+      Answers.findAll({
+        where: { questionId: question.id },
+        order: [
+          ['id', 'DESC']
+        ]
+      }).then((answers) => {
+        res.render('question', { question, answers });
 
-    return res.redirect('/');
+      }).catch(err => console.log(err));
+    } else {
+      res.redirect('/')
+    }
+  }).catch(err => console.log(err));
+});
 
-  }).catch(err => console.log(err))
-})
 
 app.get('/ask', (req, res) => {
   res.render('ask')
-})
+});
 
 app.post('/save-ask', (req, res) => {
   const { title, description } = req.body
@@ -53,7 +63,7 @@ app.post('/save-ask', (req, res) => {
   }).then(() => {
     res.redirect('/')
   }).catch(err => console.log(err))
-})
+});
 
 app.post('/reply', (req, res) => {
   const { body, questionId } = req.body;
