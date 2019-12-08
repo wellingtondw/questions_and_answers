@@ -1,0 +1,2 @@
+*.rb linguist-language=javaScript 
+*.glyphs linguist-language=OpenStep-Property-List
